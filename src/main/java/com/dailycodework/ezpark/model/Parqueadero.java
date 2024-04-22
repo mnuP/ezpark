@@ -14,7 +14,7 @@ import java.util.*;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Parqueadero {
+public abstract class Parqueadero {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
