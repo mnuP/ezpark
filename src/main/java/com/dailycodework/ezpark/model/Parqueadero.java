@@ -25,12 +25,8 @@ public class Parqueadero {
     @OneToMany(mappedBy="parqueadero", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Espacio> espacios;
 
-    @Lob
-    private Blob photo;
 
-    public Parqueadero(String idAdministrador, String nombre) {
-        this.espacios = new ArrayList<>();
-    }
+    public Parqueadero(Long idAdministrador, String nombre) {this.espacios = new ArrayList<>();}
 
     public Long getIdAdministrador() {
         return idAdministrador;
@@ -73,11 +69,14 @@ public class Parqueadero {
         this.idParqueadero = idParqueadero;
     }
 
-    public Blob getPhoto() {
-        return photo;
-    }
 
-    public void setPhoto(Blob photo) {
-        this.photo = photo;
+    @Override
+    public String toString() {
+        return "Parqueadero{" +
+                "idParqueadero=" + idParqueadero +
+                ", idAdministrador=" + idAdministrador +
+                ", nombre='" + nombre + '\'' +
+                ", espacios=" + espacios +
+                '}';
     }
 }

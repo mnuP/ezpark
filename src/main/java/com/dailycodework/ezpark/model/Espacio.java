@@ -59,6 +59,14 @@ public class Espacio {
         espacio.setEspacio(this);
     };
 
+    public Parqueadero getParqueadero() {
+        return parqueadero;
+    }
+
+    public void setParqueadero(Parqueadero parqueadero) {
+        this.parqueadero = parqueadero;
+    }
+
     public List<EspacioReservado> getReservasEspacio() {
         return reservasEspacio;
     };

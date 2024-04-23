@@ -1,9 +1,6 @@
 package com.dailycodework.ezpark.response;
 
-import com.dailycodework.ezpark.model.EspacioReservado;
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.OneToMany;
+import com.dailycodework.ezpark.model.Parqueadero;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -15,15 +12,18 @@ public class EspacioResponse {
 
     private Long id;
     private String tipo;
+    private Parqueadero parqueadero;
     private List<EspacioReservadoResponse> reservasResponses;
 
-    public EspacioResponse(Long id, String tipo) {
+    public EspacioResponse(Long id, String tipo, Parqueadero parqueadero) {
         this.id = id;
         this.tipo = tipo;
+        this.parqueadero = parqueadero;
     }
 
-    public EspacioResponse(String tipo, List<EspacioReservadoResponse> reservasResponses, Long id) {
+    public EspacioResponse(Long id ,String tipo, Parqueadero parqueadero ,List<EspacioReservadoResponse> reservasResponses) {
         this.tipo = tipo;
+        this.parqueadero = parqueadero;
         this.reservasResponses = reservasResponses;
         this.id = id;
     }
