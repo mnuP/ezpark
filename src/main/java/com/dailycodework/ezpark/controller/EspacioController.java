@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/espacios")
+
 public class EspacioController {
 
     private final EspacioService espacioService;

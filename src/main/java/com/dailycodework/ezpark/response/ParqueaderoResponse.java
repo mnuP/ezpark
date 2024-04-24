@@ -2,6 +2,7 @@ package com.dailycodework.ezpark.response;
 
 import com.dailycodework.ezpark.model.Espacio;
 import com.dailycodework.ezpark.model.Parqueadero;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
