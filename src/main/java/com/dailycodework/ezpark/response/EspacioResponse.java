@@ -13,12 +13,19 @@ public class EspacioResponse {
     private Long id;
     private String tipo;
     private Parqueadero parqueadero;
+    private Long parqueaderoID;
     private List<EspacioReservadoResponse> reservasResponses;
 
     public EspacioResponse(Long id, String tipo, Parqueadero parqueadero) {
         this.id = id;
         this.tipo = tipo;
         this.parqueadero = parqueadero;
+    }
+
+    public EspacioResponse(Long id, String tipo, Long parqueaderoID) {
+        this.id = id;
+        this.tipo = tipo;
+        this.parqueaderoID = parqueaderoID;
     }
 
     public EspacioResponse(Long id ,String tipo, Parqueadero parqueadero ,List<EspacioReservadoResponse> reservasResponses) {

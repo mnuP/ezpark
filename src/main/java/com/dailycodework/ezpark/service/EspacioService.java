@@ -6,19 +6,30 @@ import com.dailycodework.ezpark.repository.EspacioRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.Optional;
+
 @Service
 @RequiredArgsConstructor
 public class EspacioService implements IEspacioService{
 
     private final EspacioRepository espacioRepository;
+    private final ParqueaderoService parqueaderoService;
 
     @Override
-    public Espacio addNewEspacio(String tipo, Parqueadero parqueadero) {
+    public Espacio addNewEspacio(String tipo, Long parqueaderoSTR) {
         Espacio espacio = new Espacio();
 
+        Optional<Parqueadero> parqueadero = parqueaderoService.getParqueaderoById(parqueaderoSTR);
+
         espacio.setTipo(tipo);
-        espacio.setParqueadero(parqueadero);
+        espacio.setParqueadero(parqueadero.get());
 
         return espacioRepository.save(espacio);
+    }
+
+    @Override
+    public List<Espacio> getAllEspacios() {
+        return espacioRepository.findAll();
     }
 }

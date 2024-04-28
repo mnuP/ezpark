@@ -65,7 +65,7 @@ public class ParqueaderoController {
     public ResponseEntity<Optional<ParqueaderoResponse>> getParqueaderoById(@PathVariable Long idParqueadero) {
         Optional<Parqueadero> theParqueadero = parqueaderoService.getParqueaderoById(idParqueadero);
         return theParqueadero.map(parqueadero -> {
-            ParqueaderoResponse parqueaderoResponse = getParqueaderoResponse(parqueadero);
+            ParqueaderoResponse parqueaderoResponse = getFullParqueaderoResponse(parqueadero);
             return ResponseEntity.ok(Optional.of(parqueaderoResponse));
         }).orElseThrow(() -> new ResourceNotFoundException("Room not found"));
     }
@@ -76,5 +76,13 @@ public class ParqueaderoController {
         return new ParqueaderoResponse(
                 parqueadero.getIdAdministrador(),
                 parqueadero.getNombre());
+    }
+
+    private ParqueaderoResponse getFullParqueaderoResponse(Parqueadero parqueadero) {
+        return new ParqueaderoResponse(
+                parqueadero.getIdAdministrador(),
+                parqueadero.getIdParqueadero(),
+                parqueadero.getNombre(),
+                parqueadero.getEspacios());
     }
 }
