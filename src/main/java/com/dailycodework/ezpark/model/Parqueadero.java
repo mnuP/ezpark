@@ -58,7 +58,7 @@ public class Parqueadero {
         }
 
         this.espacios.add(espacio);
-        espacio.setParqueadero(this);
+        espacio.setParqueadero(this.getIdParqueadero());
     };
 
     public Long getIdParqueadero() {

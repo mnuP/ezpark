@@ -21,9 +21,8 @@ public class EspacioService implements IEspacioService{
         Espacio espacio = new Espacio();
 
         Optional<Parqueadero> parqueadero = parqueaderoService.getParqueaderoById(parqueaderoSTR);
-
         espacio.setTipo(tipo);
-        espacio.setParqueadero(parqueadero.get());
+        espacio.setParqueadero(parqueadero.get().getIdParqueadero());
 
         return espacioRepository.save(espacio);
     }
@@ -31,5 +30,11 @@ public class EspacioService implements IEspacioService{
     @Override
     public List<Espacio> getAllEspacios() {
         return espacioRepository.findAll();
+    }
+
+
+    @Override
+    public Optional<Espacio> getEspacioById(Long idEspacio) {
+        return Optional.of(espacioRepository.findById(idEspacio).get());
     }
 }

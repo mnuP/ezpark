@@ -23,12 +23,11 @@ public class Espacio {
     @Column(name="tipo")
     private String tipo;
 
-    @OneToMany(mappedBy = "espacio", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "idEspacio", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<EspacioReservado> reservasEspacio;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "idParqueadero")
-    private Parqueadero parqueadero;
+    @Column(name="idParqueadero")
+    private Long parqueadero;
 
     public Espacio() {
         this.reservasEspacio = new ArrayList<>();
@@ -56,14 +55,14 @@ public class Espacio {
         }
 
         this.reservasEspacio.add(espacio);
-        espacio.setEspacio(this);
+        espacio.setEspacio(this.getId());
     };
 
-    public Parqueadero getParqueadero() {
+    public Long getIdParqueadero() {
         return parqueadero;
     }
 
-    public void setParqueadero(Parqueadero parqueadero) {
+    public void setIdParqueadero(Long parqueadero) {
         this.parqueadero = parqueadero;
     }
 

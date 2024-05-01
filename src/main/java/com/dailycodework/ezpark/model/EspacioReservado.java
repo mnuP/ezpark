@@ -31,9 +31,8 @@ public class EspacioReservado {
     @Column(name = "idUsuario")
     private String idUsuario;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "idEspacio")
-    private Espacio espacio;
+    @Column(name = "idEspacio")
+    private Long idEspacio;
 
 
     public LocalDate getDia() {
@@ -60,12 +59,12 @@ public class EspacioReservado {
         this.idUsuario = idUsuario;
     }
 
-    public Espacio getEspacio() {
-        return espacio;
+    public Long getIdEspacio() {
+        return idEspacio;
     }
 
-    public void setEspacio(Espacio espacio) {
-        this.espacio = espacio;
+    public void setEspacio(Long espacio) {
+        this.idEspacio = espacio;
     }
 
     public Long getId() {

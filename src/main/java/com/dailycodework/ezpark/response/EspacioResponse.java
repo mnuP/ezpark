@@ -1,5 +1,6 @@
 package com.dailycodework.ezpark.response;
 
+import com.dailycodework.ezpark.model.EspacioReservado;
 import com.dailycodework.ezpark.model.Parqueadero;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -12,15 +13,9 @@ public class EspacioResponse {
 
     private Long id;
     private String tipo;
-    private Parqueadero parqueadero;
     private Long parqueaderoID;
-    private List<EspacioReservadoResponse> reservasResponses;
+    private List<EspacioReservado> reservasResponses;
 
-    public EspacioResponse(Long id, String tipo, Parqueadero parqueadero) {
-        this.id = id;
-        this.tipo = tipo;
-        this.parqueadero = parqueadero;
-    }
 
     public EspacioResponse(Long id, String tipo, Long parqueaderoID) {
         this.id = id;
@@ -28,9 +23,9 @@ public class EspacioResponse {
         this.parqueaderoID = parqueaderoID;
     }
 
-    public EspacioResponse(Long id ,String tipo, Parqueadero parqueadero ,List<EspacioReservadoResponse> reservasResponses) {
+    public EspacioResponse(Long id ,String tipo, Long parqueaderoID ,List<EspacioReservado> reservasResponses) {
         this.tipo = tipo;
-        this.parqueadero = parqueadero;
+        this.parqueaderoID = parqueaderoID;
         this.reservasResponses = reservasResponses;
         this.id = id;
     }

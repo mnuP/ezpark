@@ -24,10 +24,12 @@ public class EspacioReservadoResponse {
 
     private String idUsuario;
 
-    private Espacio espacio;
+    private Long idEspacio;
 
-    public EspacioReservadoResponse(Long id, LocalDate dia) {
+    public EspacioReservadoResponse(Long id, LocalDate dia, String idUsuario, Long idEspacio) {
         this.id = id;
         this.dia = dia;
+        this.idUsuario = idUsuario;
+        this.idEspacio = idEspacio;
     }
 }

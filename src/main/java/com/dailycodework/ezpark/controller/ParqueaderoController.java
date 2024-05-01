@@ -67,7 +67,7 @@ public class ParqueaderoController {
         return theParqueadero.map(parqueadero -> {
             ParqueaderoResponse parqueaderoResponse = getFullParqueaderoResponse(parqueadero);
             return ResponseEntity.ok(Optional.of(parqueaderoResponse));
-        }).orElseThrow(() -> new ResourceNotFoundException("Room not found"));
+        }).orElseThrow(() -> new ResourceNotFoundException("Parqueadero no encontrado"));
     }
 
 
