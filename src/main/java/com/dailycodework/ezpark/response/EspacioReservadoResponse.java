@@ -24,12 +24,18 @@ public class EspacioReservadoResponse {
 
     private String idUsuario;
 
+    private int horaInicio;
+
+    private int horaFin;
+
     private Long idEspacio;
 
-    public EspacioReservadoResponse(Long id, LocalDate dia, String idUsuario, Long idEspacio) {
+    public EspacioReservadoResponse(Long id, LocalDate dia, int horaInicio, int horaFin, String idUsuario, Long idEspacio) {
         this.id = id;
         this.dia = dia;
         this.idUsuario = idUsuario;
         this.idEspacio = idEspacio;
+        this.horaInicio = horaInicio;
+        this.horaFin = horaFin;
     }
 }

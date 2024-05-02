@@ -2,12 +2,9 @@ package com.dailycodework.ezpark.controller;
 
 
 import com.dailycodework.ezpark.exception.ResourceNotFoundException;
-import com.dailycodework.ezpark.exception.reservaInvalidaRequestException;
-import com.dailycodework.ezpark.model.Espacio;
+import com.dailycodework.ezpark.exception.ReservaInvalidaRequestException;
 import com.dailycodework.ezpark.model.EspacioReservado;
 import com.dailycodework.ezpark.response.EspacioReservadoResponse;
-import com.dailycodework.ezpark.response.EspacioResponse;
-import com.dailycodework.ezpark.service.EspacioService;
 import com.dailycodework.ezpark.service.IEspacioService;
 import com.dailycodework.ezpark.service.IReservaService;
 import lombok.RequiredArgsConstructor;
@@ -15,8 +12,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 @RequiredArgsConstructor
 @RestController
@@ -48,6 +48,7 @@ public class ReservaController {
         }
     }
 
+    /*
     @PostMapping("/espacio/{idEspacio}/reserva")
     public ResponseEntity<?> guardarReserva(@PathVariable Long idEspacio, @RequestBody EspacioReservado reservaRequest){
         try{
@@ -55,7 +56,35 @@ public class ReservaController {
             return ResponseEntity.ok(
                     "La reserva ha sido exitosa, su numero de reserva es: "+id);
 
-        }catch (reservaInvalidaRequestException e){
+        }catch (ReservaInvalidaRequestException e){
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }*/
+
+    @PostMapping("/espacio/{idEspacio}/reserva")
+    public ResponseEntity<?> guardarReserva(@PathVariable Long idEspacio,
+                                            @RequestParam("dia") String dia,
+                                            @RequestParam("horaInicioReserva") String horaInicioReserva,
+                                            @RequestParam("horaFinReserva") String horaFinReserva,
+                                            @RequestParam("matricula") String matricula,
+                                            @RequestParam("idUsuario") String idUsuario){
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MMM-dd");
+        formatter = formatter.withLocale(Locale.US ); // Locale specifies human language for translating, and cultural norms for lowercase/uppercase and abbreviations and such. Example: Locale.US or Locale.CANADA_FRENCH
+        LocalDate date = LocalDate.parse(dia, formatter);
+
+        EspacioReservado reservaRequest = new EspacioReservado();
+        reservaRequest.setDia(date);
+        reservaRequest.setHoraInicioReserva(Integer.parseInt(horaInicioReserva));
+        reservaRequest.setHoraFinReserva(Integer.parseInt(horaFinReserva));
+        reservaRequest.setMatriculaVehiculo(matricula);
+        reservaRequest.setIdUsuario(idUsuario);
+
+        try{
+            Long id = proxyReserva.saveReserva(idEspacio, reservaRequest);
+            return ResponseEntity.ok(
+                    "La reserva ha sido exitosa, su numero de reserva es: "+id);
+
+        }catch (ReservaInvalidaRequestException e){
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
@@ -66,7 +95,7 @@ public class ReservaController {
     }
 
     private EspacioReservadoResponse getEspacioReservadoResponse(EspacioReservado reserva){
-        EspacioReservadoResponse espRes = new EspacioReservadoResponse(reserva.getId(), reserva.getDia(), reserva.getIdUsuario(), reserva.getIdEspacio());
+        EspacioReservadoResponse espRes = new EspacioReservadoResponse(reserva.getId(), reserva.getDia(), reserva.getHoraInicioReserva(), reserva.getHoraFinReserva(), reserva.getIdUsuario(), reserva.getIdEspacio());
         return espRes;
     }
 }

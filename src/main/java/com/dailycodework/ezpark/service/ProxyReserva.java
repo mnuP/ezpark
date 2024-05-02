@@ -13,6 +13,7 @@ import java.util.List;
 public class ProxyReserva implements IReservaService{
 
     private final ReservaRepository reservaRepository;
+    private final IEspacioService espacioService;
     private ReservaService reservaService;
 
     @Override
@@ -44,7 +45,7 @@ public class ProxyReserva implements IReservaService{
 
     private void instantiateService(){
         if(this.reservaService == null){
-            this.reservaService = ReservaService.getInstance(reservaRepository);
+            this.reservaService = ReservaService.getInstance(reservaRepository, espacioService);
         }
     }
 }

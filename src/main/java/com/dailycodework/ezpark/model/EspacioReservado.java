@@ -25,6 +25,12 @@ public class EspacioReservado {
     @Column(name = "diaReserva")
     private LocalDate dia;
 
+    @Column(name = "horaInicioReserva")
+    private int horaInicioReserva;
+
+    @Column(name = "horaFinReserva")
+    private int horaFinReserva;
+
     @Column(name = "matriculaVehiculo")
     private String matriculaVehiculo;
 
@@ -63,7 +69,7 @@ public class EspacioReservado {
         return idEspacio;
     }
 
-    public void setEspacio(Long espacio) {
+    public void setIdEspacio(Long espacio) {
         this.idEspacio = espacio;
     }
 
@@ -74,4 +80,21 @@ public class EspacioReservado {
     public void setId(Long id) {
         this.id = id;
     }
+
+    public int getHoraInicioReserva() {
+        return horaInicioReserva;
+    }
+
+    public void setHoraInicioReserva(int horaInicioReserva) {
+        this.horaInicioReserva = horaInicioReserva;
+    }
+
+    public int getHoraFinReserva() {
+        return horaFinReserva;
+    }
+
+    public void setHoraFinReserva(int horaFinReserva) {
+        this.horaFinReserva = horaFinReserva;
+    }
+
 }
