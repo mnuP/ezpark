@@ -19,7 +19,7 @@ import java.util.List;
 public class JwtUtils {
     private static final Logger logger = LoggerFactory.getLogger(JwtUtils.class);
 
-    @Value("${security.jwt.secret-key}")
+    @Value("36763979244226452948404D635166546A576D5A7134743777217A25432A462D")
     private String jwtSecret;
 
     @Value("${auth.token.expirationInMils}")
