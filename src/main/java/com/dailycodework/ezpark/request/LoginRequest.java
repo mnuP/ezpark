@@ -9,5 +9,5 @@ public class LoginRequest {
     @NotBlank
     private String email;
     @NotBlank
-    private String password;
+    private String contraseña;
 }
