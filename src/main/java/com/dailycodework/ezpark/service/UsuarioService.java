@@ -30,9 +30,9 @@ public class UsuarioService implements IUsuarioService {
             throw new UsuarioYaExisteException(usuario.getEmail() + " ya existe");
         }
         usuario.setContraseña(passwordEncoder.encode(usuario.getContraseña()));
-        Rol rolUsuario = rolRepository.findByNombre("ROLE_USER")
+        /*Rol rolUsuario = rolRepository.findByNombre("ROLE_USER")
                 .orElseThrow(() -> new RuntimeException("Rol de usuario no encontrado"));
-        usuario.setRoles((Set<Rol>) Collections.singletonList(rolUsuario));
+        usuario.setRoles((Set<Rol>) Collections.singletonList(rolUsuario));*/
         return usuarioRepository.save(usuario);
     }
 

@@ -10,6 +10,7 @@ import com.dailycodework.ezpark.service.IReservaService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
@@ -37,7 +38,7 @@ public class ReservaController {
     }
 
     @GetMapping("/id/{idReserva}")
-    public ResponseEntity<?> getReservaById(String idReserva){
+    public ResponseEntity<?> getReservaById(@PathVariable String idReserva){
         try {
             EspacioReservado reserva = proxyReserva.findByIdReserva(Long.parseLong(idReserva));
             EspacioReservadoResponse reservaResponse = getEspacioReservadoResponse(reserva);
