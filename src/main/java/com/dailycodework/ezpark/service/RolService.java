@@ -41,7 +41,7 @@ public class RolService implements IRolService {
 
     @Override
     public Rol buscarPorNombre(String nombre) {
-        return rolRepository.findByNombre(nombre).orElseThrow(() -> new UsernameNotFoundException("Rol no encontrado"));
+        return rolRepository.findByNombre(nombre).get();
     }
 
     @Override

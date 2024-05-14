@@ -49,18 +49,6 @@ public class ReservaController {
         }
     }
 
-    /*
-    @PostMapping("/espacio/{idEspacio}/reserva")
-    public ResponseEntity<?> guardarReserva(@PathVariable Long idEspacio, @RequestBody EspacioReservado reservaRequest){
-        try{
-            Long id = proxyReserva.saveReserva(idEspacio, reservaRequest);
-            return ResponseEntity.ok(
-                    "La reserva ha sido exitosa, su numero de reserva es: "+id);
-
-        }catch (ReservaInvalidaRequestException e){
-            return ResponseEntity.badRequest().body(e.getMessage());
-        }
-    }*/
 
     @PostMapping("/espacio/{idEspacio}/reserva")
     public ResponseEntity<?> guardarReserva(@PathVariable Long idEspacio,

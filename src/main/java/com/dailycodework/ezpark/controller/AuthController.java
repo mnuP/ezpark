@@ -37,6 +37,7 @@ public class AuthController {
             System.out.println("Usuario:" + usuario);
             usuarioService.registrarUsuario(usuario);
             return ResponseEntity.ok("Registration successful!");
+
         } catch (UsuarioYaExisteException e) {
             return ResponseEntity.status(HttpStatus.CONFLICT).body(e.getMessage());
         }
@@ -44,12 +45,16 @@ public class AuthController {
 
     @PostMapping("/login")
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest request) {
-        Authentication authentication = authenticationManager
-                .authenticate(new UsernamePasswordAuthenticationToken(request.getEmail(), request.getContraseña()));
+        Authentication authentication =
+                authenticationManager
+                    .authenticate(new UsernamePasswordAuthenticationToken(request.getEmail(), request.getContraseña()));
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String jwt = jwtUtils.generateJwtTokenForUser(authentication);
-        ParqueaderoUserDetails userDetails = (ParqueaderoUserDetails) authentication.getPrincipal(); // Cambio aquí
-        List<String> roles = userDetails.getAuthorities().stream().map(GrantedAuthority::getAuthority).toList();
+        ParqueaderoUserDetails userDetails = (ParqueaderoUserDetails) authentication.getPrincipal();
+        List<String> roles = userDetails.getAuthorities()
+                .stream().
+                map(GrantedAuthority::getAuthority).toList();
+
         return ResponseEntity.ok(new JwtResponse(
                 userDetails.getId(),
                 userDetails.getEmail(),

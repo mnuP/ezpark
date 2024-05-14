@@ -20,7 +20,6 @@ import java.util.Set;
 @RequiredArgsConstructor
 public class UsuarioService implements IUsuarioService {
     private final UsuarioRepository usuarioRepository;
-
     private final PasswordEncoder passwordEncoder;
     private final RolRepository rolRepository;
 
@@ -30,24 +29,23 @@ public class UsuarioService implements IUsuarioService {
             throw new UsuarioYaExisteException(usuario.getEmail() + " ya existe");
         }
         usuario.setContraseña(passwordEncoder.encode(usuario.getContraseña()));
-        /*Rol rolUsuario = rolRepository.findByNombre("ROLE_USER")
-                .orElseThrow(() -> new RuntimeException("Rol de usuario no encontrado"));
-        usuario.setRoles((Set<Rol>) Collections.singletonList(rolUsuario));*/
+        System.out.println(usuario.getContraseña());
+        Rol rolUsuario = rolRepository.findByNombre("ROLE_USER").get();
+        usuario.setRoles(Collections.singleton(rolUsuario));
         return usuarioRepository.save(usuario);
     }
 
-
     @Override
     public List<Usuario> getUsuarios() {
-        return List.of();
+        return usuarioRepository.findAll();
     }
 
 
     @Transactional
     @Override
     public void eliminarUsuario(String email) {
-        Usuario usuario = getUsuarioPorEmail(email);
-        if (usuario != null) {
+        Usuario theUser = getUsuarioPorEmail(email);
+        if (theUser != null) {
             usuarioRepository.deleteByEmail(email);
         }
     }
