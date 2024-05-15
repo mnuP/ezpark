@@ -29,8 +29,17 @@ public class ParqueaderoController {
     public ResponseEntity<ParqueaderoResponse> addNewParqueadero(
             @RequestParam("idAdministrador") String idAdministrador,
             @RequestParam("nombre") String nombre) {
+        // Log parameters to debug
+        System.out.println("idAdministrador: " + idAdministrador);
+        System.out.println("nombre: " + nombre);
+
         Parqueadero parkGuardado = parqueaderoService.addNewParqueadero(Long.parseLong(idAdministrador), nombre);
-        ParqueaderoResponse response = new ParqueaderoResponse(parkGuardado.getIdAdministrador(), parkGuardado.getIdParqueadero(), parkGuardado.getNombre(), parkGuardado.getEspacios());
+        ParqueaderoResponse response = new ParqueaderoResponse(
+                parkGuardado.getIdAdministrador(),
+                parkGuardado.getIdParqueadero(),
+                parkGuardado.getNombre(),
+                parkGuardado.getEspacios()
+        );
 
         return ResponseEntity.ok(response);
     }
