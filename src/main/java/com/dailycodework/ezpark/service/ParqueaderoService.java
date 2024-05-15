@@ -39,8 +39,8 @@ public class ParqueaderoService implements IParqueaderoService {
     }
 
     @Override
-    public Parqueadero updateParqueadero(Long idAdministrador, String nombre) {
-        Parqueadero parqueadero = parqueaderoRepository.findById(idAdministrador).
+    public Parqueadero updateParqueadero(Long idParqueadero, String nombre) {
+        Parqueadero parqueadero = parqueaderoRepository.findById(idParqueadero).
                 orElseThrow(()->new ResourceNotFoundException("Parqueadero no encontrado"));
         if (nombre != null) parqueadero.setNombre(nombre);
 
