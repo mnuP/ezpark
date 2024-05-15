@@ -42,6 +42,7 @@ public class ParqueaderoService implements IParqueaderoService {
     public Parqueadero updateParqueadero(Long idParqueadero, String nombre) {
         Parqueadero parqueadero = parqueaderoRepository.findById(idParqueadero).
                 orElseThrow(()->new ResourceNotFoundException("Parqueadero no encontrado"));
+        System.out.println(nombre);
         if (nombre != null) parqueadero.setNombre(nombre);
 
         return parqueaderoRepository.save(parqueadero);

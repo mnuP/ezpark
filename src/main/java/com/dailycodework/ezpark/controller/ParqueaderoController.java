@@ -27,8 +27,10 @@ public class ParqueaderoController {
 
     @PostMapping("/add/new-parqueadero")
     public ResponseEntity<ParqueaderoResponse> addNewParqueadero(
-            @RequestParam("idAdministrador") String idAdministrador,
-            @RequestParam("nombre") String nombre) {
+            @RequestParam(value = "idAdministrador", required = false) String idAdministrador,
+            @RequestParam(value = "nombre", required = false) String nombre) {
+
+
         // Log parameters to debug
         System.out.println("idAdministrador: " + idAdministrador);
         System.out.println("nombre: " + nombre);
@@ -63,9 +65,10 @@ public class ParqueaderoController {
     }
 
     @PutMapping("/update/{idParqueadero}")
-    public ResponseEntity <ParqueaderoResponse> updateParqueadero(@PathVariable Long idParqueadero,
-                                                                  @RequestParam(required = false) String nombre){
-       Parqueadero theParqueadero=parqueaderoService.updateParqueadero(idParqueadero,nombre);
+    public ResponseEntity <ParqueaderoResponse> updateParqueadero(@PathVariable String idParqueadero,
+                                                                  @RequestParam("nombre") String nombre){
+        System.out.println("controller: "+nombre);
+       Parqueadero theParqueadero=parqueaderoService.updateParqueadero(Long.parseLong(idParqueadero),nombre);
        ParqueaderoResponse parqueaderoResponse=getParqueaderoResponse(theParqueadero);
        return ResponseEntity.ok(parqueaderoResponse);
     }
