@@ -24,7 +24,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
  */
 @Configuration
 @RequiredArgsConstructor
-@EnableMethodSecurity(securedEnabled = true, jsr250Enabled = true, prePostEnabled = true)
+@EnableMethodSecurity(securedEnabled = false, jsr250Enabled = false, prePostEnabled = false)
 public class WebSecurityConfig {
     private final ParqueaderoUserDetailsService userDetailsService;
     private final JwtAuthEntryPoint jwtAuthEntryPoint;
@@ -57,19 +57,9 @@ public class WebSecurityConfig {
                 .exceptionHandling(
                         exception -> exception.authenticationEntryPoint(jwtAuthEntryPoint))
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/auth/**", "/parqueaderos/**","/reservas/**")
-                        .permitAll().requestMatchers("/roles/**").hasRole("ADMIN")
-                        .anyRequest().authenticated());
+                .authorizeHttpRequests(auth -> auth.requestMatchers("/auth/**", "/parqueaderos/**","/reservas/**", "/espacios/**", "/usuarios/**").permitAll());
         http.authenticationProvider(authenticationProvider());
         http.addFilterBefore(authenticationTokenFilter(), UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }
-
-
-
-
-
-
-
 }

@@ -26,7 +26,7 @@ public class ParqueaderoController {
     private final ParqueaderoService parqueaderoService;
 
     @PostMapping("/add/new-parqueadero")
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+
     public ResponseEntity<ParqueaderoResponse> addNewParqueadero(
             @RequestParam("idAdministrador") String idAdministrador,
             @RequestParam("nombre") String nombre) {
@@ -49,14 +49,14 @@ public class ParqueaderoController {
     }
 
    @DeleteMapping("/delete/parqueadero/{parqueaderoId}")
-   @PreAuthorize("hasRole('ROLE_ADMIN')")
+
     public ResponseEntity<Void> deleteParqueadero(@PathVariable Long parqueaderoId){
         parqueaderoService.deleteParqueadero(parqueaderoId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     @PutMapping("/update/{idParqueadero}")
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+
     public ResponseEntity <ParqueaderoResponse> updateParqueadero(@RequestParam(required = false) Long idAdministrador,
                                                                   @RequestParam(required = false) String nombre){
        Parqueadero theParqueadero=parqueaderoService.updateParqueadero(idAdministrador,nombre);
