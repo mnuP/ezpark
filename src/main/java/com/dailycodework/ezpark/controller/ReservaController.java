@@ -57,7 +57,7 @@ public class ReservaController {
                                             @RequestParam("horaFinReserva") String horaFinReserva,
                                             @RequestParam("matricula") String matricula,
                                             @RequestParam("idUsuario") String idUsuario){
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MMM-dd");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         formatter = formatter.withLocale(Locale.US ); // Locale specifies human language for translating, and cultural norms for lowercase/uppercase and abbreviations and such. Example: Locale.US or Locale.CANADA_FRENCH
         LocalDate date = LocalDate.parse(dia, formatter);
 
@@ -79,12 +79,12 @@ public class ReservaController {
     }
 
     @DeleteMapping("/reserva/{idReserva}/delete")
-    public void cancelarReserva(Long idReserva){
-        proxyReserva.cancelarReserva(idReserva);
+    public void cancelarReserva(@PathVariable String idReserva){
+        proxyReserva.cancelarReserva(Long.parseLong(idReserva));
     }
 
     private EspacioReservadoResponse getEspacioReservadoResponse(EspacioReservado reserva){
-        EspacioReservadoResponse espRes = new EspacioReservadoResponse(reserva.getId(), reserva.getDia(), reserva.getHoraInicioReserva(), reserva.getHoraFinReserva(), reserva.getIdUsuario(), reserva.getIdEspacio());
+        EspacioReservadoResponse espRes = new EspacioReservadoResponse(reserva.getId(), reserva.getDia(), reserva.getHoraInicioReserva(), reserva.getHoraFinReserva(), reserva.getIdUsuario(), reserva.getIdEspacio(), reserva.getMatriculaVehiculo());
         return espRes;
     }
 }

@@ -38,4 +38,14 @@ public class EspacioReservadoResponse {
         this.horaInicio = horaInicio;
         this.horaFin = horaFin;
     }
+
+    public EspacioReservadoResponse(Long id, LocalDate dia, int horaInicio, int horaFin, String idUsuario, Long idEspacio, String matriculaVehiculo) {
+        this.id = id;
+        this.dia = dia;
+        this.idUsuario = idUsuario;
+        this.idEspacio = idEspacio;
+        this.horaInicio = horaInicio;
+        this.horaFin = horaFin;
+        this.matriculaVehiculo = matriculaVehiculo;
+    }
 }

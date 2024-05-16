@@ -1,0 +1,25 @@
+version: '3'
+services:
+
+  database:
+    image: mysql:latest
+    environment:
+      MYSQL_DATABASE: ezpark_db
+      MYSQL_ROOT_USER: root
+      MYSQL_ROOT_PASSWORD: rootSQL31415*
+      MYSQL_ROOT_HOST: '%'
+    ports:
+      - "3306:3306"
+    restart: unless-stopped
+    networks:
+      - US_net
+
+  application:
+    build: .
+    ports:
+      - "9192:9192"
+    networks:
+      - US_net
+
+networks:
+  US_net:
