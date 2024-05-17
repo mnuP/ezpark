@@ -3,24 +3,23 @@ server:
 
 spring:
   datasource:
+    url: jdbc:mysql://db:3306/ezpark_db
     username: root
     password: rootSQL31415*
-    url: jdbc:mysql://localhost:3306/ezpark_db
     driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     show-sql: true
-    hibernate:
-      ddl-auto: update
-      format_sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect
+        format_sql: true
+        hbm2ddl.auto: update
   servlet:
     multipart:
-    max-file-size: 5MB
-    max-request-size: 5MB
-    file-size-threshold: 2KB
-
+      max-file-size: 5MB
+      max-request-size: 5MB
+      file-size-threshold: 2KB
   security:
     jwt:
-     secret-key: 36763979244226452948404D635166546A576D5A7134743777217A25432A462D
-     expire-length: 86400000
-
-
+      secret-key: 36763979244226452948404D635166546A576D5A7134743777217A25432A462D
+      expire-length: 86400000
