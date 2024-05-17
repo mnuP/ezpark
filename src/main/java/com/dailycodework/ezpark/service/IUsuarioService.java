@@ -9,4 +9,5 @@ public interface IUsuarioService {
     List<Usuario> getUsuarios();
     void eliminarUsuario(String email);
     Usuario getUsuarioPorEmail(String email);
+    Usuario getUsuarioPorId(Long id);
 }

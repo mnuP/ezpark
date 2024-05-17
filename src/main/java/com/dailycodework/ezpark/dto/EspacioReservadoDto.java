@@ -1,10 +1,5 @@
-package com.dailycodework.ezpark.response;
+package com.dailycodework.ezpark.dto;
 
-import com.dailycodework.ezpark.model.Espacio;
-import jakarta.persistence.Column;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,7 +9,7 @@ import java.time.LocalDate;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class EspacioReservadoResponse {
+public class EspacioReservadoDto {
 
     private Long id;
 
@@ -30,7 +25,7 @@ public class EspacioReservadoResponse {
 
     private Long idEspacio;
 
-    public EspacioReservadoResponse(Long id, LocalDate dia, int horaInicio, int horaFin, String idUsuario, Long idEspacio) {
+    public EspacioReservadoDto(Long id, LocalDate dia, int horaInicio, int horaFin, String idUsuario, Long idEspacio) {
         this.id = id;
         this.dia = dia;
         this.idUsuario = idUsuario;
@@ -39,7 +34,7 @@ public class EspacioReservadoResponse {
         this.horaFin = horaFin;
     }
 
-    public EspacioReservadoResponse(Long id, LocalDate dia, int horaInicio, int horaFin, String idUsuario, Long idEspacio, String matriculaVehiculo) {
+    public EspacioReservadoDto(Long id, LocalDate dia, int horaInicio, int horaFin, String idUsuario, Long idEspacio, String matriculaVehiculo) {
         this.id = id;
         this.dia = dia;
         this.idUsuario = idUsuario;

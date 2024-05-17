@@ -3,7 +3,7 @@ package com.dailycodework.ezpark.controller;
 import com.dailycodework.ezpark.exception.UsuarioYaExisteException;
 import com.dailycodework.ezpark.model.Usuario;
 import com.dailycodework.ezpark.request.LoginRequest;
-import com.dailycodework.ezpark.response.JwtResponse;
+import com.dailycodework.ezpark.dto.JwtDto;
 import com.dailycodework.ezpark.security.jwt.JwtUtils;
 import com.dailycodework.ezpark.security.usuario.*;
 import com.dailycodework.ezpark.service.IUsuarioService;
@@ -55,7 +55,7 @@ public class AuthController {
                 .stream().
                 map(GrantedAuthority::getAuthority).toList();
 
-        return ResponseEntity.ok(new JwtResponse(
+        return ResponseEntity.ok(new JwtDto(
                 userDetails.getId(),
                 userDetails.getEmail(),
                 jwt,

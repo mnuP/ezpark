@@ -1,19 +1,14 @@
 package com.dailycodework.ezpark.controller;
 
 import com.dailycodework.ezpark.exception.ResourceNotFoundException;
-import com.dailycodework.ezpark.model.Espacio;
 import com.dailycodework.ezpark.model.Parqueadero;
-import com.dailycodework.ezpark.response.EspacioResponse;
-import com.dailycodework.ezpark.response.ParqueaderoResponse;
+import com.dailycodework.ezpark.dto.ParqueaderoDto;
 import com.dailycodework.ezpark.service.ParqueaderoService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-import java.io.IOException;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -26,7 +21,7 @@ public class ParqueaderoController {
     private final ParqueaderoService parqueaderoService;
 
     @PostMapping("/add/new-parqueadero")
-    public ResponseEntity<ParqueaderoResponse> addNewParqueadero(
+    public ResponseEntity<ParqueaderoDto> addNewParqueadero(
             @RequestParam(value = "idAdministrador", required = false) String idAdministrador,
             @RequestParam(value = "nombre", required = false) String nombre) {
 
@@ -36,7 +31,7 @@ public class ParqueaderoController {
         System.out.println("nombre: " + nombre);
 
         Parqueadero parkGuardado = parqueaderoService.addNewParqueadero(Long.parseLong(idAdministrador), nombre);
-        ParqueaderoResponse response = new ParqueaderoResponse(
+        ParqueaderoDto response = new ParqueaderoDto(
                 parkGuardado.getIdAdministrador(),
                 parkGuardado.getIdParqueadero(),
                 parkGuardado.getNombre(),
@@ -47,15 +42,15 @@ public class ParqueaderoController {
     }
 
     @GetMapping("/all-parqueaderos")
-    public ResponseEntity<List<ParqueaderoResponse>> getAllParqueaderos() {
+    public ResponseEntity<List<ParqueaderoDto>> getAllParqueaderos() {
         List<Parqueadero> parqueaderos = parqueaderoService.getAllParqueaderos();
-        List<ParqueaderoResponse> parqueaderoResponses = new ArrayList<>();
+        List<ParqueaderoDto> parqueaderoRespons = new ArrayList<>();
         for (Parqueadero parqueadero : parqueaderos) {
-            ParqueaderoResponse parqueaderoResponse = new ParqueaderoResponse(parqueadero.getIdAdministrador(),
+            ParqueaderoDto parqueaderoDto = new ParqueaderoDto(parqueadero.getIdAdministrador(),
                     parqueadero.getIdParqueadero(), parqueadero.getNombre(), parqueadero.getEspacios());
-            parqueaderoResponses.add(parqueaderoResponse);
+            parqueaderoRespons.add(parqueaderoDto);
         }
-        return ResponseEntity.ok(parqueaderoResponses);
+        return ResponseEntity.ok(parqueaderoRespons);
     }
 
    @DeleteMapping("/delete/parqueadero/{parqueaderoId}")
@@ -65,33 +60,33 @@ public class ParqueaderoController {
     }
 
     @PutMapping("/update/{idParqueadero}")
-    public ResponseEntity <ParqueaderoResponse> updateParqueadero(@PathVariable String idParqueadero,
-                                                                  @RequestParam("nombre") String nombre){
+    public ResponseEntity <ParqueaderoDto> updateParqueadero(@PathVariable String idParqueadero,
+                                                             @RequestParam("nombre") String nombre){
         System.out.println("controller: "+nombre);
        Parqueadero theParqueadero=parqueaderoService.updateParqueadero(Long.parseLong(idParqueadero),nombre);
-       ParqueaderoResponse parqueaderoResponse=getParqueaderoResponse(theParqueadero);
-       return ResponseEntity.ok(parqueaderoResponse);
+       ParqueaderoDto parqueaderoDto =getParqueaderoResponse(theParqueadero);
+       return ResponseEntity.ok(parqueaderoDto);
     }
 
     @GetMapping("/parqueadero/{idParqueadero}")
-    public ResponseEntity<Optional<ParqueaderoResponse>> getParqueaderoById(@PathVariable Long idParqueadero) {
+    public ResponseEntity<Optional<ParqueaderoDto>> getParqueaderoById(@PathVariable Long idParqueadero) {
         Optional<Parqueadero> theParqueadero = parqueaderoService.getParqueaderoById(idParqueadero);
         return theParqueadero.map(parqueadero -> {
-            ParqueaderoResponse parqueaderoResponse = getFullParqueaderoResponse(parqueadero);
-            return ResponseEntity.ok(Optional.of(parqueaderoResponse));
+            ParqueaderoDto parqueaderoDto = getFullParqueaderoResponse(parqueadero);
+            return ResponseEntity.ok(Optional.of(parqueaderoDto));
         }).orElseThrow(() -> new ResourceNotFoundException("Parqueadero no encontrado"));
     }
 
 
 
-    private ParqueaderoResponse getParqueaderoResponse(Parqueadero parqueadero) {
-        return new ParqueaderoResponse(
+    private ParqueaderoDto getParqueaderoResponse(Parqueadero parqueadero) {
+        return new ParqueaderoDto(
                 parqueadero.getIdAdministrador(),
                 parqueadero.getNombre());
     }
 
-    private ParqueaderoResponse getFullParqueaderoResponse(Parqueadero parqueadero) {
-        return new ParqueaderoResponse(
+    private ParqueaderoDto getFullParqueaderoResponse(Parqueadero parqueadero) {
+        return new ParqueaderoDto(
                 parqueadero.getIdAdministrador(),
                 parqueadero.getIdParqueadero(),
                 parqueadero.getNombre(),

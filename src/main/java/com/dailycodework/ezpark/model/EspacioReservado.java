@@ -40,6 +40,9 @@ public class EspacioReservado {
     @Column(name = "idEspacio")
     private Long idEspacio;
 
+    @Column(name = "valorReserva")
+    private Long valorReserva;
+
 
     public LocalDate getDia() {
         return dia;
@@ -97,4 +100,11 @@ public class EspacioReservado {
         this.horaFinReserva = horaFinReserva;
     }
 
+    public Long getValorReserva() {
+        return valorReserva;
+    }
+
+    public void setValorReserva(Long valorReserva) {
+        this.valorReserva = valorReserva;
+    }
 }

@@ -22,7 +22,8 @@ public class Usuario {
     private String apellido;
     private String email;
     private String contraseña;
-
+    @Column(name="tipoUsuario")
+    private String tipoUsuario;
     @ManyToMany(fetch = FetchType.EAGER,
             cascade = {CascadeType.PERSIST,
                     CascadeType.MERGE, CascadeType.DETACH})

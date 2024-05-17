@@ -2,11 +2,7 @@ package com.dailycodework.ezpark.controller;
 
 import com.dailycodework.ezpark.exception.ResourceNotFoundException;
 import com.dailycodework.ezpark.model.Espacio;
-import com.dailycodework.ezpark.model.Parqueadero;
-import com.dailycodework.ezpark.repository.EspacioRepository;
-import com.dailycodework.ezpark.response.EspacioReservadoResponse;
-import com.dailycodework.ezpark.response.EspacioResponse;
-import com.dailycodework.ezpark.response.ParqueaderoResponse;
+import com.dailycodework.ezpark.dto.EspacioDto;
 import com.dailycodework.ezpark.service.EspacioService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -25,37 +21,37 @@ public class EspacioController {
     private final EspacioService espacioService;
 
     @PostMapping("/add/new-espacio")
-    public ResponseEntity<EspacioResponse> addNewEspacio(
+    public ResponseEntity<EspacioDto> addNewEspacio(
             @RequestParam("tipo") String tipo,
             @RequestParam("parqueadero") String parqueadero) {
         Espacio espacioGuardado =  espacioService.addNewEspacio(tipo, Long.parseLong(parqueadero));
-        EspacioResponse response = new EspacioResponse(espacioGuardado.getId(), espacioGuardado.getTipo(), espacioGuardado.getIdParqueadero());
+        EspacioDto response = new EspacioDto(espacioGuardado.getId(), espacioGuardado.getTipo(), espacioGuardado.getIdParqueadero());
 
         return ResponseEntity.ok(response);
     }
 
     @GetMapping("/all-espacios")
-    public ResponseEntity<List<EspacioResponse>> getAllEspacios() {
+    public ResponseEntity<List<EspacioDto>> getAllEspacios() {
         List<Espacio> espacios = espacioService.getAllEspacios();
-        List<EspacioResponse> espacioResponses = new ArrayList<>();
+        List<EspacioDto> espacioRespons = new ArrayList<>();
         for (Espacio espacio : espacios) {
-            EspacioResponse espacioResponse = new EspacioResponse(espacio.getId(), espacio.getTipo(), espacio.getIdParqueadero());
-            espacioResponses.add(espacioResponse);
+            EspacioDto espacioDto = new EspacioDto(espacio.getId(), espacio.getTipo(), espacio.getIdParqueadero());
+            espacioRespons.add(espacioDto);
         }
-        return ResponseEntity.ok(espacioResponses);
+        return ResponseEntity.ok(espacioRespons);
     }
 
     @GetMapping("/espacio/{idEspacio}")
-    public ResponseEntity<Optional<EspacioResponse>> getEspacioById(@PathVariable Long idEspacio) {
+    public ResponseEntity<Optional<EspacioDto>> getEspacioById(@PathVariable Long idEspacio) {
         Optional<Espacio> theEspacio = espacioService.getEspacioById(idEspacio);
         return theEspacio.map(espacio -> {
-            EspacioResponse espacioResponse = getFullEspacioResponse(espacio);
-            return ResponseEntity.ok(Optional.of(espacioResponse));
+            EspacioDto espacioDto = getFullEspacioResponse(espacio);
+            return ResponseEntity.ok(Optional.of(espacioDto));
         }).orElseThrow(() -> new ResourceNotFoundException("Espacio no encontrado"));
     }
 
-    private EspacioResponse getFullEspacioResponse(Espacio espacio) {
-        return new EspacioResponse(
+    private EspacioDto getFullEspacioResponse(Espacio espacio) {
+        return new EspacioDto(
                 espacio.getId(),
                 espacio.getTipo(),
                 espacio.getIdParqueadero(),

@@ -2,7 +2,7 @@ package com.dailycodework.ezpark.service;
 
 import com.dailycodework.ezpark.model.Espacio;
 import com.dailycodework.ezpark.model.Parqueadero;
-import com.dailycodework.ezpark.repository.EspacioRepository;
+import com.dailycodework.ezpark.dao.EspacioDao;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -13,7 +13,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class EspacioService implements IEspacioService{
 
-    private final EspacioRepository espacioRepository;
+    private final EspacioDao espacioDao;
     private final ParqueaderoService parqueaderoService;
 
     @Override
@@ -24,17 +24,17 @@ public class EspacioService implements IEspacioService{
         espacio.setTipo(tipo);
         espacio.setParqueadero(parqueadero.get().getIdParqueadero());
 
-        return espacioRepository.save(espacio);
+        return espacioDao.save(espacio);
     }
 
     @Override
     public List<Espacio> getAllEspacios() {
-        return espacioRepository.findAll();
+        return espacioDao.findAll();
     }
 
 
     @Override
     public Optional<Espacio> getEspacioById(Long idEspacio) {
-        return Optional.of(espacioRepository.findById(idEspacio).get());
+        return Optional.of(espacioDao.findById(idEspacio).get());
     }
 }

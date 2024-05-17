@@ -1,7 +1,6 @@
-package com.dailycodework.ezpark.response;
+package com.dailycodework.ezpark.dto;
 
 import com.dailycodework.ezpark.model.EspacioReservado;
-import com.dailycodework.ezpark.model.Parqueadero;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -9,7 +8,7 @@ import java.util.List;
 
 @Data
 @NoArgsConstructor
-public class EspacioResponse {
+public class EspacioDto {
 
     private Long id;
     private String tipo;
@@ -17,13 +16,13 @@ public class EspacioResponse {
     private List<EspacioReservado> reservasResponses;
 
 
-    public EspacioResponse(Long id, String tipo, Long parqueaderoID) {
+    public EspacioDto(Long id, String tipo, Long parqueaderoID) {
         this.id = id;
         this.tipo = tipo;
         this.parqueaderoID = parqueaderoID;
     }
 
-    public EspacioResponse(Long id ,String tipo, Long parqueaderoID ,List<EspacioReservado> reservasResponses) {
+    public EspacioDto(Long id , String tipo, Long parqueaderoID , List<EspacioReservado> reservasResponses) {
         this.tipo = tipo;
         this.parqueaderoID = parqueaderoID;
         this.reservasResponses = reservasResponses;

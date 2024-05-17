@@ -2,7 +2,7 @@ package com.dailycodework.ezpark.service;
 
 import com.dailycodework.ezpark.exception.ResourceNotFoundException;
 import com.dailycodework.ezpark.model.Parqueadero;
-import com.dailycodework.ezpark.repository.ParqueaderoRepository;
+import com.dailycodework.ezpark.dao.ParqueaderoDao;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import java.util.List;
@@ -12,7 +12,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class ParqueaderoService implements IParqueaderoService {
 
-    private final ParqueaderoRepository parqueaderoRepository;
+    private final ParqueaderoDao parqueaderoDao;
 
     @Override
     public Parqueadero addNewParqueadero(Long idAdministrador, String nombre) {
@@ -20,37 +20,37 @@ public class ParqueaderoService implements IParqueaderoService {
         parqueadero.setIdAdministrador(idAdministrador);
         parqueadero.setNombre(nombre);
 
-        return parqueaderoRepository.save(parqueadero);
+        return parqueaderoDao.save(parqueadero);
     }
 
     @Override
     public List<Parqueadero> getAllParqueaderos() {
-        return parqueaderoRepository.findAll();
+        return parqueaderoDao.findAll();
     }
 
 
 
     @Override
     public void deleteParqueadero(Long parqueaderoId) {
-        Optional<Parqueadero> theparqueadero = parqueaderoRepository.findById(parqueaderoId);
+        Optional<Parqueadero> theparqueadero = parqueaderoDao.findById(parqueaderoId);
         if (theparqueadero.isPresent()) {
-            parqueaderoRepository.deleteById(parqueaderoId);
+            parqueaderoDao.deleteById(parqueaderoId);
         }
     }
 
     @Override
     public Parqueadero updateParqueadero(Long idParqueadero, String nombre) {
-        Parqueadero parqueadero = parqueaderoRepository.findById(idParqueadero).
+        Parqueadero parqueadero = parqueaderoDao.findById(idParqueadero).
                 orElseThrow(()->new ResourceNotFoundException("Parqueadero no encontrado"));
         System.out.println(nombre);
         if (nombre != null) parqueadero.setNombre(nombre);
 
-        return parqueaderoRepository.save(parqueadero);
+        return parqueaderoDao.save(parqueadero);
     }
 
     @Override
     public Optional<Parqueadero> getParqueaderoById(Long idParqueadero) {
-        return Optional.of(parqueaderoRepository.findById(idParqueadero).get());
+        return Optional.of(parqueaderoDao.findById(idParqueadero).get());
     }
 
 }

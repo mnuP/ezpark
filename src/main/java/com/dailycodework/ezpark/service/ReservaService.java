@@ -3,9 +3,7 @@ package com.dailycodework.ezpark.service;
 import com.dailycodework.ezpark.model.Espacio;
 import com.dailycodework.ezpark.exception.ReservaInvalidaRequestException;
 import com.dailycodework.ezpark.model.EspacioReservado;
-import com.dailycodework.ezpark.service.IEspacioService;
-import com.dailycodework.ezpark.repository.ReservaRepository;
-import lombok.RequiredArgsConstructor;
+import com.dailycodework.ezpark.dao.ReservaDao;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,29 +12,29 @@ import java.util.List;
 public class ReservaService implements IReservaService {
 
     private final IEspacioService espacioService;
-    private final ReservaRepository reservaRepository;
+    private final ReservaDao reservaDao;
     private static ReservaService instance;
 
-    private ReservaService(ReservaRepository reservaRepository, IEspacioService espacioService){
-        this.reservaRepository = reservaRepository;
+    private ReservaService(ReservaDao reservaDao, IEspacioService espacioService){
+        this.reservaDao = reservaDao;
         this.espacioService = espacioService;
     }
 
-    public static ReservaService getInstance(ReservaRepository reservaRepository, IEspacioService espacioService){
+    public static ReservaService getInstance(ReservaDao reservaDao, IEspacioService espacioService){
         if(instance == null){
-            instance = new ReservaService(reservaRepository, espacioService);
+            instance = new ReservaService(reservaDao, espacioService);
         }
         return instance;
     }
 
     @Override
     public List<EspacioReservado> getAllReservas() {
-        return reservaRepository.findAll();
+        return reservaDao.findAll();
     }
 
     @Override
     public EspacioReservado findByIdReserva(Long idReserva) {
-        return reservaRepository.findById(idReserva).get();
+        return reservaDao.findById(idReserva).get();
     }
 
     @Override
@@ -49,7 +47,7 @@ public class ReservaService implements IReservaService {
 
         if (espacioAvailable(espacioReservado, reservasExistentes)){
             espacio.añadirReserva(espacioReservado);
-            reservaRepository.save(espacioReservado);
+            reservaDao.save(espacioReservado);
         }else{
             throw  new ReservaInvalidaRequestException("Espacio no disponible en el dia seleccionado");
         }
@@ -58,7 +56,7 @@ public class ReservaService implements IReservaService {
 
     @Override
     public void cancelarReserva(Long idReserva) {
-        reservaRepository.deleteById(idReserva);
+        reservaDao.deleteById(idReserva);
     }
 
     private boolean espacioAvailable(EspacioReservado solicitudReserva, List<EspacioReservado> reservasExistentes) {

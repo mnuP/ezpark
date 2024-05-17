@@ -4,13 +4,12 @@ package com.dailycodework.ezpark.controller;
 import com.dailycodework.ezpark.exception.ResourceNotFoundException;
 import com.dailycodework.ezpark.exception.ReservaInvalidaRequestException;
 import com.dailycodework.ezpark.model.EspacioReservado;
-import com.dailycodework.ezpark.response.EspacioReservadoResponse;
+import com.dailycodework.ezpark.dto.EspacioReservadoDto;
 import com.dailycodework.ezpark.service.IEspacioService;
 import com.dailycodework.ezpark.service.IReservaService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
@@ -27,11 +26,11 @@ public class ReservaController {
     private final IEspacioService espacioService;
 
     @GetMapping("/all-reservas")
-    public ResponseEntity<List<EspacioReservadoResponse>> getAllReservas(){
+    public ResponseEntity<List<EspacioReservadoDto>> getAllReservas(){
         List<EspacioReservado> reservas = proxyReserva.getAllReservas();
-        List<EspacioReservadoResponse> reservaResponses = new ArrayList<>();
+        List<EspacioReservadoDto> reservaResponses = new ArrayList<>();
         for(EspacioReservado reserva : reservas){
-            EspacioReservadoResponse resp = getEspacioReservadoResponse(reserva);
+            EspacioReservadoDto resp = getEspacioReservadoResponse(reserva);
             reservaResponses.add(resp);
         }
         return ResponseEntity.ok(reservaResponses);
@@ -41,7 +40,7 @@ public class ReservaController {
     public ResponseEntity<?> getReservaById(@PathVariable String idReserva){
         try {
             EspacioReservado reserva = proxyReserva.findByIdReserva(Long.parseLong(idReserva));
-            EspacioReservadoResponse reservaResponse = getEspacioReservadoResponse(reserva);
+            EspacioReservadoDto reservaResponse = getEspacioReservadoResponse(reserva);
 
             return ResponseEntity.ok(reservaResponse);
         }catch (ResourceNotFoundException ex){
@@ -83,8 +82,8 @@ public class ReservaController {
         proxyReserva.cancelarReserva(Long.parseLong(idReserva));
     }
 
-    private EspacioReservadoResponse getEspacioReservadoResponse(EspacioReservado reserva){
-        EspacioReservadoResponse espRes = new EspacioReservadoResponse(reserva.getId(), reserva.getDia(), reserva.getHoraInicioReserva(), reserva.getHoraFinReserva(), reserva.getIdUsuario(), reserva.getIdEspacio(), reserva.getMatriculaVehiculo());
+    private EspacioReservadoDto getEspacioReservadoResponse(EspacioReservado reserva){
+        EspacioReservadoDto espRes = new EspacioReservadoDto(reserva.getId(), reserva.getDia(), reserva.getHoraInicioReserva(), reserva.getHoraFinReserva(), reserva.getIdUsuario(), reserva.getIdEspacio(), reserva.getMatriculaVehiculo());
         return espRes;
     }
 }

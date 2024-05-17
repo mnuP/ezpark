@@ -2,6 +2,7 @@ package com.dailycodework.ezpark.controller;
 
 import com.dailycodework.ezpark.model.Usuario;
 import com.dailycodework.ezpark.service.IUsuarioService;
+import com.dailycodework.ezpark.service.UsuarioService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
