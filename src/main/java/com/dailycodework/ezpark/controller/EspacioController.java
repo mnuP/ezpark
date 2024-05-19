@@ -35,7 +35,7 @@ public class EspacioController {
         List<Espacio> espacios = espacioService.getAllEspacios();
         List<EspacioDto> espacioRespons = new ArrayList<>();
         for (Espacio espacio : espacios) {
-            EspacioDto espacioDto = new EspacioDto(espacio.getId(), espacio.getTipo(), espacio.getIdParqueadero());
+            EspacioDto espacioDto = new EspacioDto(espacio.getId(), espacio.getTipo(), espacio.getIdParqueadero(), espacio.getReservasEspacio());
             espacioRespons.add(espacioDto);
         }
         return ResponseEntity.ok(espacioRespons);

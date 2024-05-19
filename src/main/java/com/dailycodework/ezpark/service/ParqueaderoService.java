@@ -28,8 +28,6 @@ public class ParqueaderoService implements IParqueaderoService {
         return parqueaderoDao.findAll();
     }
 
-
-
     @Override
     public void deleteParqueadero(Long parqueaderoId) {
         Optional<Parqueadero> theparqueadero = parqueaderoDao.findById(parqueaderoId);
@@ -53,4 +51,7 @@ public class ParqueaderoService implements IParqueaderoService {
         return Optional.of(parqueaderoDao.findById(idParqueadero).get());
     }
 
+    public List<Parqueadero> getAllParqueaderosFromAdmin(Long idAdministrador) {
+        return parqueaderoDao.getAllParqueaderosFromAdmin(idAdministrador);
+    }
 }

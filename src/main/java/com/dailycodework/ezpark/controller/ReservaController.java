@@ -57,7 +57,7 @@ public class ReservaController {
                                             @RequestParam("matricula") String matricula,
                                             @RequestParam("idUsuario") String idUsuario){
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        formatter = formatter.withLocale(Locale.US ); // Locale specifies human language for translating, and cultural norms for lowercase/uppercase and abbreviations and such. Example: Locale.US or Locale.CANADA_FRENCH
+        formatter = formatter.withLocale(Locale.US );
         LocalDate date = LocalDate.parse(dia, formatter);
 
         EspacioReservado reservaRequest = new EspacioReservado();

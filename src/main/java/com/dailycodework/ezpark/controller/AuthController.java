@@ -35,6 +35,7 @@ public class AuthController {
     public ResponseEntity<?> registerUser(@RequestBody Usuario usuario) {
         try {
             System.out.println("Usuario:" + usuario);
+            usuario.setTipoUsuario("estudiante");
             usuarioService.registrarUsuario(usuario);
             return ResponseEntity.ok("Registration successful!");
 

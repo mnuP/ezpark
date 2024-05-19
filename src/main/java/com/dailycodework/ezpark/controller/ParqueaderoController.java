@@ -77,6 +77,17 @@ public class ParqueaderoController {
         }).orElseThrow(() -> new ResourceNotFoundException("Parqueadero no encontrado"));
     }
 
+    @GetMapping("/all-parqueaderos/admin/{idAdministrador}")
+    public ResponseEntity<List<ParqueaderoDto>> getAllParqueaderosFromAdmin(@PathVariable Long idAdministrador) {
+        List<Parqueadero> parqueaderos = parqueaderoService.getAllParqueaderosFromAdmin(idAdministrador);
+        List<ParqueaderoDto> parqueaderoRespons = new ArrayList<>();
+        for (Parqueadero parqueadero : parqueaderos) {
+            ParqueaderoDto parqueaderoDto = new ParqueaderoDto(parqueadero.getIdAdministrador(),
+                    parqueadero.getIdParqueadero(), parqueadero.getNombre(), parqueadero.getEspacios());
+            parqueaderoRespons.add(parqueaderoDto);
+        }
+        return ResponseEntity.ok(parqueaderoRespons);
+    }
 
 
     private ParqueaderoDto getParqueaderoResponse(Parqueadero parqueadero) {
